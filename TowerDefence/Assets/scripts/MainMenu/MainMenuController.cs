@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -16,6 +17,17 @@ public class MainMenuController : MonoBehaviour {
 	void Update () {
 		//panel.SetActive(false);
 	}
+
+    public void NewGameButtonClicked()
+    {
+        SceneManager.LoadScene("Level1Test");
+    }
+
+    public void SavedGameButtonClicked()
+    {
+        //SceneManager.LoadScene("Level2Test");
+        SceneManager.LoadSceneAsync("Level1Test");
+    }
 
     public void ExitButtonClicked()
     {
