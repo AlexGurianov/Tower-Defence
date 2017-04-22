@@ -113,6 +113,8 @@
     <Compile Include="Assets\external assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
     <Compile Include="Assets\external assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\external assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+    <Compile Include="Assets\scripts\Levels\Buttons\PauseMenuController.cs" />
+    <Compile Include="Assets\scripts\Levels\Buttons\SceneButtonsController.cs" />
     <Compile Include="Assets\scripts\Levels\Pathfinding\Grid.cs" />
     <Compile Include="Assets\scripts\Levels\Pathfinding\Heap.cs" />
     <Compile Include="Assets\scripts\Levels\Pathfinding\Line.cs" />

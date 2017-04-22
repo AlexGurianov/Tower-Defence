@@ -15,7 +15,7 @@ public class MainMenuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//panel.SetActive(false);
+		
 	}
 
     public void NewGameButtonClicked()
@@ -25,8 +25,7 @@ public class MainMenuController : MonoBehaviour {
 
     public void SavedGameButtonClicked()
     {
-        //SceneManager.LoadScene("Level2Test");
-        SceneManager.LoadSceneAsync("Level1Test");
+
     }
 
     public void ExitButtonClicked()
