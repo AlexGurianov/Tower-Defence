@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PushingOut : MonoBehaviour {
 
-    //public GameObject Pumpkin;
-
-    //BoxCollider boxcollider;
-
-    const int pushSteps = 40;
+    const int pushSteps = 20;
     const float waitTime = 0.01f;
 
     // Use this for initialization

@@ -13,9 +13,12 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Instantiate(pumpkin, new Vector3(transform.position.x, 0.4f, transform.position.z), Quaternion.identity);
-        }
+
+    }
+
+    public void ShootAtTarget(ShotInfo shotInfo)
+    {
+        GameObject newPumpkin = (GameObject)Instantiate(pumpkin, new Vector3(transform.position.x, 0.4f, transform.position.z), Quaternion.identity);
+        newPumpkin.GetComponent<Launcher>().shotInfo = shotInfo;
     }
 }

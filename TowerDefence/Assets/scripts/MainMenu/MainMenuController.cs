@@ -20,12 +20,14 @@ public class MainMenuController : MonoBehaviour {
 
     public void NewGameButtonClicked()
     {
+        SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = false;
         SceneManager.LoadScene("Level1Test");
     }
 
     public void SavedGameButtonClicked()
     {
-
+        SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = true;
+        SceneManager.LoadScene("Level1Test");
     }
 
     public void ExitButtonClicked()
