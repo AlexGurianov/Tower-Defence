@@ -40,7 +40,7 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	void CreateGrid() {
+	public void CreateGrid() {
 		grid = new Node[gridSizeX,gridSizeY];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
 
@@ -149,14 +149,17 @@ public class Grid : MonoBehaviour {
 
 		int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
 		int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
-		return grid[x,y];
+
+        grid[x, y].walkable = true;
+        grid[x, y].movementPenalty = 0;
+
+        return grid[x,y];
 	}
 
 	/*void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 		if (grid != null && displayGridGizmos) {
 			foreach (Node n in grid) {
-
 				Gizmos.color = Color.Lerp (Color.white, Color.black, Mathf.InverseLerp (penaltyMin, penaltyMax, n.movementPenalty));
 				Gizmos.color = (n.walkable)?Gizmos.color:Color.red;
 				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter));

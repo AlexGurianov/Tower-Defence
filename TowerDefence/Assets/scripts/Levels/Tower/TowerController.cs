@@ -8,42 +8,22 @@ public class TowerController : MonoBehaviour {
 
     public int ID;
 
-    public float ShootingRange = 10;
+    public bool placed = false;
 
-    private LayerMask EnemiesMask = 1 << 10;
-
-    bool placed = false;
-
-    float reloadTime = 1f;
     float noDeleteTime = 1;
 
-    float lastShotTime;
     float placedTime;
+
+    public TowerType type;
 
 	// Use this for initialization
 	void Start () {
-        lastShotTime = -reloadTime;
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (placed && Physics.CheckSphere(transform.position, ShootingRange, EnemiesMask))
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, ShootingRange, EnemiesMask);
-            if (Time.time - lastShotTime > reloadTime)
-            {
-                int targetNum = ChooseTarget(hitColliders);
-                if (targetNum != -1)
-                {
-                    ShotInfo spot = ChooseSpot(hitColliders[targetNum]);
-                    //Debug.Log(spot.x);
-                    //Debug.Log(spot.z);
-                    Debug.DrawRay(spot.targetPosition, Vector3.up * 30, Color.white, 5, false);
-                    GetComponent<Shoot>().ShootAtTarget(spot);
-                    lastShotTime = Time.time;
-                }
-            }
-        }
+        
     }
 
     public void placeTower()
@@ -55,26 +35,9 @@ public class TowerController : MonoBehaviour {
         placed = true;
         placedTime = Time.time;
         Destroy(GetComponent<DragDrop>());
-    }
-    
-    private int ChooseTarget(Collider[] hitColliders)
-    {
-        int targetNum = 0;
-        for (int i = 1; i < hitColliders.Length; i++)
-        {
-            if (hitColliders[i].GetComponent<MonsterController>().energy >= 0.05 && hitColliders[i].GetComponent<MonsterController>().CreationTime < hitColliders[targetNum].GetComponent<MonsterController>().CreationTime)
-                targetNum = i;
-        }
-        if (hitColliders[targetNum].GetComponent<MonsterController>().energy < 0.05)
-            return -1;
-        else
-            return targetNum;
-    }
-
-    private ShotInfo ChooseSpot(Collider target)
-    {
-        ShotInfo shotInfo = new ShotInfo(target.transform.position, target.transform.TransformDirection(Vector3.forward), target.GetComponent<Unit>().speed);
-        return shotInfo;
+        GameObject gameController = GameObject.Find("GameController");
+        if (gameController != null)
+            StartCoroutine(gameController.GetComponent<GameController>().UpdateMonstersPaths());
     }
 
     private void OnMouseDown()
@@ -94,6 +57,6 @@ public class TowerController : MonoBehaviour {
     public TowerInfo GiveSaveInfo()
     {
         Vector3 pos = transform.position;
-        return new TowerInfo(pos.x, pos.y, pos.z);
+        return new TowerInfo(pos.x, pos.y, pos.z, type);
     }
 }

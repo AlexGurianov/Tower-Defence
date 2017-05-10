@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour {
 
-    public GameObject Saver_Loader;
-
     public GameObject PauseMenuPanel;
     public GameObject SaveQuestionPanel;
     public GameObject InfoPanel;
@@ -35,6 +33,14 @@ public class PauseMenuController : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    public void SettingsButtonClicked()
+    {
+        Time.timeScale = 1;
+        SceneInfoCarrier.sceneInfoCarrier.saver_Loader.SaveGame("SettingsTempSavedGame");
+        SceneInfoCarrier.sceneInfoCarrier.comingToSettingsFromGame = true;
+        SceneManager.LoadScene("Settings");
+    }
+
     public void ExitButtonClicked()
     {
         SaveQuestionPanel.SetActive(true);
@@ -42,7 +48,7 @@ public class PauseMenuController : MonoBehaviour {
 
     public void SaveButtonClicked()
     {
-        Saver_Loader.GetComponent<Saver_Loader>().Save();
+        SceneInfoCarrier.sceneInfoCarrier.saver_Loader.SaveGame("Saved Game");
         PauseMenuPanel.SetActive(false);
         SaveQuestionPanel.SetActive(false);
         Time.timeScale = 1;
@@ -52,7 +58,7 @@ public class PauseMenuController : MonoBehaviour {
 
     public void SaveQuestionYesClicked()
     {
-        Saver_Loader.GetComponent<Saver_Loader>().Save();
+        SceneInfoCarrier.sceneInfoCarrier.saver_Loader.SaveGame("Saved Game");
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }

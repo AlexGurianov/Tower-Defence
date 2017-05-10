@@ -16,19 +16,22 @@ public class Unit : MonoBehaviour {
 
 	void Start() {
         target = GameObject.Find("Target").transform;
+        speed *= Random.Range(1f, 1.5f);
         StartCoroutine (UpdatePath ());
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
-		if (pathSuccessful) {
-			path = new Path(waypoints, transform.position, turnDst, stoppingDst);
+        if (pathSuccessful) {
+            path = new Path(waypoints, transform.position, turnDst, stoppingDst);
 
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
 		}
-	}
+        else
+            StopCoroutine("FollowPath");
+    }
 
-	IEnumerator UpdatePath() {
+	public IEnumerator UpdatePath() {
 
 		if (Time.timeSinceLevelLoad < .3f) {
 			yield return new WaitForSeconds (.3f);

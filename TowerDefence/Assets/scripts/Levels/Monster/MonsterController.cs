@@ -31,9 +31,12 @@ public class MonsterController : MonoBehaviour {
             energy = 0;
             if (energy < 0.05)
             {
+                gameObject.layer = 0;
                 GetComponent<Unit>().Stop();
                 animator.SetFloat("Energy", energy);
                 DeleteMonster(GetAnimationTime("ghost_die"));
+                GetComponents<AudioSource>()[0].volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.gameSoundLevel;
+                GetComponents<AudioSource>()[0].Play();
             }
         }
     }

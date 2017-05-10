@@ -11,6 +11,7 @@ public class MainMenuController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         ExitConfirmationPanel.SetActive(false);
+        SetSounds();
 	}
 	
 	// Update is called once per frame
@@ -21,13 +22,32 @@ public class MainMenuController : MonoBehaviour {
     public void NewGameButtonClicked()
     {
         SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = false;
-        SceneManager.LoadScene("Level1Test");
+        //SceneManager.LoadScene("Level1Test");
+        SceneManager.LoadScene("MapChoice");
     }
 
     public void SavedGameButtonClicked()
     {
-        SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = true;
-        SceneManager.LoadScene("Level1Test");
+        if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary.Count > 0)
+        {
+            SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = true;
+            SceneInfoCarrier.sceneInfoCarrier.GameName = "Saved Game";
+            if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[SceneInfoCarrier.sceneInfoCarrier.GameName].isSceneDefault)
+                SceneManager.LoadScene("Level1Test");
+            else
+                SceneManager.LoadScene("Level");
+        }
+    }
+
+    public void NewMapButtonClicked()
+    {
+        SceneManager.LoadScene("NewMap");
+    }
+
+    public void SettingsButtonClicked()
+    {
+        SceneInfoCarrier.sceneInfoCarrier.comingToSettingsFromGame = false;
+        SceneManager.LoadScene("Settings");
     }
 
     public void ExitButtonClicked()
@@ -43,5 +63,10 @@ public class MainMenuController : MonoBehaviour {
     public void QuitNoButtonClicked()
     {
         ExitConfirmationPanel.SetActive(false);
+    }
+
+    public void SetSounds()
+    {
+        GameObject.Find("Canvas").GetComponent<AudioSource>().volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.musicLevel;
     }
 }

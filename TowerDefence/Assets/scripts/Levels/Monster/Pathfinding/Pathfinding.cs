@@ -13,6 +13,11 @@ public class Pathfinding : MonoBehaviour {
 	}
 	
 
+    public void UpdateGrid()
+    {
+        grid.CreateGrid();
+    }
+
 	public void FindPath(PathRequest request, Action<PathResult> callback) {
 		
 		Stopwatch sw = new Stopwatch();
@@ -65,7 +70,7 @@ public class Pathfinding : MonoBehaviour {
 			waypoints = RetracePath(startNode,targetNode);
 			pathSuccess = waypoints.Length > 0;
 		}
-		callback (new PathResult (waypoints, pathSuccess, request.callback));
+        callback (new PathResult (waypoints, pathSuccess, request.callback));
 		
 	}
 		

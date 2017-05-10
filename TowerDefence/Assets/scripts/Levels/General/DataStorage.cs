@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TowerType { tree, tomb, wall_up, wall_right, wall_down, wall_left, tower1 };
+
 public class DataStorage : MonoBehaviour {
 
     public static DataStorage dataStorage;
@@ -16,7 +18,7 @@ public class DataStorage : MonoBehaviour {
     {
         if (dataStorage == null)
         {            
-            dataStorage = this;
+            dataStorage = this;         
         }
         else if (dataStorage != this)
         {
@@ -33,4 +35,5 @@ public class DataStorage : MonoBehaviour {
 	void Update () {
 		
 	}
+
 }

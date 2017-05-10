@@ -25,9 +25,9 @@ public class DragDrop : MonoBehaviour {
     void Start () {
         cam = GameObject.Find("Camera").GetComponent<Camera>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (beingDragged)
         {
             var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.WorldToScreenPoint(transform.position).z);

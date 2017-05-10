@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SceneButtonsController : MonoBehaviour {
 
@@ -10,7 +11,12 @@ public class SceneButtonsController : MonoBehaviour {
 
     public GameObject deleteTowerButton;
 
+    public GameObject wallDirectionPanel;
+
     public GameObject tower1;
+    public GameObject tree;
+    public GameObject tomb;
+    public GameObject wall;
 
     bool towerSelectionStays = false;
 
@@ -19,10 +25,14 @@ public class SceneButtonsController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         deleteTowerButton.SetActive(false);
+        wallDirectionPanel.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (wallDirectionPanel.activeSelf && Input.GetMouseButton(0) && !RectTransformUtility.RectangleContainsScreenPoint(
+                 wallDirectionPanel.GetComponent<RectTransform>(), Input.mousePosition))
+            wallDirectionPanel.SetActive(false);
         if (selectedTowerID != -1 && Input.GetMouseButton(0) && !towerSelectionStays && !RectTransformUtility.RectangleContainsScreenPoint(
                  deleteTowerButton.GetComponent<RectTransform>(), Input.mousePosition))
         {
@@ -35,9 +45,60 @@ public class SceneButtonsController : MonoBehaviour {
         pauseMenuController.CallPauseMenu();
     }
 
-    public void AddTower1ButtonClicked()
+    public void AddWallButtonClicked()
     {
-        Instantiate(tower1, new Vector3(0f, 0f, 0f), Quaternion.Euler(-90, 0, 0));
+        wallDirectionPanel.SetActive(true);
+    }
+
+    public void AddTowerButtonClicked()
+    {
+        GameObject prefab;
+        TowerType type;
+        Quaternion rotation;
+        switch (EventSystem.current.currentSelectedGameObject.name)
+        {
+            case "New Tower1 Button": default:
+                prefab = tower1;
+                type = TowerType.tower1;
+                rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case "New Tree Button":
+                prefab = tree;
+                type = TowerType.tree;
+                rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case "New Tomb Button":
+                prefab = tomb;
+                type = TowerType.tomb;
+                rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case "Wall Up Button":
+                prefab = wall;
+                type = TowerType.wall_up;
+                rotation = Quaternion.Euler(0, 90, 0);
+                wallDirectionPanel.SetActive(false);
+                break;            
+            case "Wall Right Button":
+                prefab = wall;
+                type = TowerType.wall_right;
+                rotation = Quaternion.Euler(0, 180, 0);
+                wallDirectionPanel.SetActive(false);
+                break;
+            case "Wall Down Button":
+                prefab = wall;
+                type = TowerType.wall_down;
+                rotation = Quaternion.Euler(0, 270, 0);
+                wallDirectionPanel.SetActive(false);
+                break;
+            case "Wall Left Button":
+                prefab = wall;
+                type = TowerType.wall_left;
+                rotation = Quaternion.Euler(0, 0, 0);
+                wallDirectionPanel.SetActive(false);
+                break;
+        }
+        GameObject tower = (GameObject)Instantiate(prefab, new Vector3(0f, 0f, 0f), rotation);
+        tower.GetComponent<TowerController>().type = type;
     }
 
     public void DeleteTowerButtonClicked()
@@ -49,6 +110,9 @@ public class SceneButtonsController : MonoBehaviour {
             //DataStorage.dataStorage.towersDictionary.Remove(selectedTowerID);
             selectedTowerID = -1;
             deleteTowerButton.SetActive(false);
+            GameObject gameController = GameObject.Find("GameController");
+            if (gameController != null)
+                StartCoroutine(gameController.GetComponent<GameController>().UpdateMonstersPaths());
         }
     }
 

@@ -4,12 +4,26 @@ using System.Collections.Generic;
 
 [Serializable]
 
-public class SavedData
+public class SavedGame
 {
     public List<MonsterInfo> monsters = new List<MonsterInfo>();
     public List<TowerInfo> towers = new List<TowerInfo>();
 
-    public SavedData()
+    public bool isSceneDefault = false;
+
+    public SavedGame()
+    {
+
+    }
+}
+
+[Serializable]
+
+public class SavedMap
+{
+    public List<TowerInfo> towers = new List<TowerInfo>();
+
+    public SavedMap()
     {
 
     }

@@ -17,36 +17,80 @@ public class Saver_Loader : MonoBehaviour {
 		
 	}
 
-    public void Save()
+    public static Saver_Loader saver_Loader;
+
+    public void SaveAll()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SavedGame.dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/SavedInfo.dat");
 
-        SavedData savedData = new SavedData();
-
-        foreach (int key in DataStorage.dataStorage.towersDictionary.Keys)
-            savedData.towers.Add(DataStorage.dataStorage.towersDictionary[key].GiveSaveInfo());
-        foreach (int key in DataStorage.dataStorage.monstersDictionary.Keys)
-            savedData.monsters.Add(DataStorage.dataStorage.monstersDictionary[key].GiveSaveInfo());
-
-        bf.Serialize(file, savedData);
+        bf.Serialize(file, SceneInfoCarrier.sceneInfoCarrier.gameInfo);
         file.Close();
     }
 
-    public SavedData Load()
+    public GameInfo LoadAll()
     {
-        if (File.Exists(Application.persistentDataPath + "/SavedGame.dat"))
+        if (File.Exists(Application.persistentDataPath + "/SavedInfo.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/SavedGame.dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SavedInfo.dat", FileMode.Open);
 
-            SavedData savedData = (SavedData)bf.Deserialize(file);
+            GameInfo gameInfo = (GameInfo)bf.Deserialize(file);
 
             file.Close();
 
-            return savedData;
+            return gameInfo;
         }
         return null;
     }
 
+    public void SaveGame(string gameName)
+    {
+        SavedGame savedGame = new SavedGame();
+
+        foreach (int key in DataStorage.dataStorage.towersDictionary.Keys)
+            savedGame.towers.Add(DataStorage.dataStorage.towersDictionary[key].GiveSaveInfo());
+        foreach (int key in DataStorage.dataStorage.monstersDictionary.Keys)
+            savedGame.monsters.Add(DataStorage.dataStorage.monstersDictionary[key].GiveSaveInfo());
+
+        if ((SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame &&
+            SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[SceneInfoCarrier.sceneInfoCarrier.GameName].isSceneDefault) ||
+            !SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame && SceneInfoCarrier.sceneInfoCarrier.GameName == "Default")
+            savedGame.isSceneDefault = true;
+        else
+            savedGame.isSceneDefault = false;
+
+        SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName] = savedGame;
+    }
+
+    public SavedGame LoadGame(string gameName)
+    {
+        if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName] != null)
+            return SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName];
+        else
+            return null;
+    }
+
+    public void SaveMap(string mapName)
+    {
+        SavedMap savedMap = new SavedMap();
+
+        foreach (int key in DataStorage.dataStorage.towersDictionary.Keys)
+            savedMap.towers.Add(DataStorage.dataStorage.towersDictionary[key].GiveSaveInfo());
+
+        SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedMapsDictionary[mapName] = savedMap;
+    }
+
+    public SavedMap LoadMap(string mapName)
+    {
+        if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedMapsDictionary[mapName] != null)
+            return SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedMapsDictionary[mapName];
+        else
+            return null;
+    }
+
+    public void OnApplicationQuit()
+    {
+        SaveAll();
+    }
 }

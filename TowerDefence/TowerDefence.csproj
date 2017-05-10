@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.5.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -126,9 +128,12 @@
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\PathRequestManager.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Pathfinding.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Unit.cs" />
+    <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\GameInfo.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\MonsterInfo.cs" />
+    <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\Profile.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\SavedData.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\Saver_Loader.cs" />
+    <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\Settings.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\TowerInfo.cs" />
     <Compile Include="Assets\scripts\Levels\Shooting\Launcher.cs" />
     <Compile Include="Assets\scripts\Levels\Shooting\PumpkinFadeOut.cs" />
@@ -136,8 +141,16 @@
     <Compile Include="Assets\scripts\Levels\Shooting\Shoot.cs" />
     <Compile Include="Assets\scripts\Levels\Shooting\ShotInfo.cs" />
     <Compile Include="Assets\scripts\Levels\Tower\DragDrop.cs" />
+    <Compile Include="Assets\scripts\Levels\Tower\ShootingTowerController.cs" />
     <Compile Include="Assets\scripts\Levels\Tower\TowerController.cs" />
     <Compile Include="Assets\scripts\MainMenu\MainMenuController.cs" />
+    <Compile Include="Assets\scripts\MapChoice\MapListController.cs" />
+    <Compile Include="Assets\scripts\MapChoice\MapTileButton.cs" />
+    <Compile Include="Assets\scripts\MapCreation\MapButtonsController.cs" />
+    <Compile Include="Assets\scripts\MapCreation\MapController.cs" />
+    <Compile Include="Assets\scripts\MapCreation\MapNameController.cs" />
+    <Compile Include="Assets\scripts\Settings\SettingsController.cs" />
+    <Compile Include="Assets\scripts\Settings\SliderController.cs" />
     <Compile Include="Assets\scripts\Utils\AlphaButton.cs" />
     <Compile Include="Assets\scripts\Utils\FadeInOut.cs" />
     <Compile Include="Assets\scripts\Utils\SceneInfoCarrier.cs" />
