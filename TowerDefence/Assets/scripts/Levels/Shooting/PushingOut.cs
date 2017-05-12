@@ -7,6 +7,10 @@ public class PushingOut : MonoBehaviour {
     const int pushSteps = 20;
     const float waitTime = 0.01f;
 
+    public Shoot shootingTower;
+
+    const float addedShotDelay = 0.1f;
+
     // Use this for initialization
     void Start () {
         GetComponent<Rigidbody>().useGravity = false;   
@@ -31,7 +35,8 @@ public class PushingOut : MonoBehaviour {
         {
             c.enabled = true;
         }
-        GetComponent<Launcher>().Launch();
+        float t = GetComponent<Launcher>().Launch();
+        shootingTower.TowerWaitForShotEnd(t + addedShotDelay, GetComponent<Launcher>().shotInfo.ID);
     }
 
     // Update is called once per frame

@@ -30,7 +30,7 @@ public class ShootingTowerController : MonoBehaviour {
                     ShotInfo spot = ChooseSpot(hitColliders[targetNum]);
                     //Debug.Log(spot.x);
                     //Debug.Log(spot.z);
-                    Debug.DrawRay(spot.targetPosition, Vector3.up * 30, Color.white, 5, false);
+                    //Debug.DrawRay(spot.targetPosition, Vector3.up * 30, Color.white, 5, false);
                     GetComponent<Shoot>().ShootAtTarget(spot);
                     lastShotTime = Time.time;
                 }
@@ -43,10 +43,12 @@ public class ShootingTowerController : MonoBehaviour {
         int targetNum = 0;
         for (int i = 1; i < hitColliders.Length; i++)
         {
-            if (hitColliders[i].GetComponent<MonsterController>().energy >= 0.05 && hitColliders[i].GetComponent<MonsterController>().CreationTime < hitColliders[targetNum].GetComponent<MonsterController>().CreationTime)
+            if (!GetComponent<Shoot>().mobsBeingShot.Contains(hitColliders[i].GetComponent<MonsterController>().ID)
+                && hitColliders[i].GetComponent<MonsterController>().energy >= 0.05
+                && hitColliders[i].GetComponent<MonsterController>().CreationTime < hitColliders[targetNum].GetComponent<MonsterController>().CreationTime)
                 targetNum = i;
         }
-        if (hitColliders[targetNum].GetComponent<MonsterController>().energy < 0.05)
+        if (hitColliders[targetNum].GetComponent<MonsterController>().energy < 0.05 || GetComponent<Shoot>().mobsBeingShot.Contains(hitColliders[targetNum].GetComponent<MonsterController>().ID))
             return -1;
         else
             return targetNum;
@@ -54,7 +56,7 @@ public class ShootingTowerController : MonoBehaviour {
 
     private ShotInfo ChooseSpot(Collider target)
     {
-        ShotInfo shotInfo = new ShotInfo(target.transform.position, target.transform.TransformDirection(Vector3.forward), target.GetComponent<Unit>().speed);
+        ShotInfo shotInfo = new ShotInfo(target.transform.position, target.transform.TransformDirection(Vector3.forward), target.GetComponent<Unit>().speed, target.GetComponent<MonsterController>().ID);
         return shotInfo;
     }
 }

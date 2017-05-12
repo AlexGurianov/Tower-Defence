@@ -17,7 +17,7 @@ public class Launcher : MonoBehaviour
 
     int monstersLayer = 10;
 
-    public void Launch()
+    public float Launch()
     {
         Vector3 target = shotInfo.targetPosition;
 
@@ -40,7 +40,24 @@ public class Launcher : MonoBehaviour
 
         float T = dist/Vz;
 
-        transform.LookAt(shotInfo.targetPosition + shotInfo.speed * T * shotInfo.movementDirection);
+        //transform.LookAt(shotInfo.targetPosition + shotInfo.speed * T * shotInfo.movementDirection);
+
+        float alpha = Mathf.Acos(((pos.x - target.x) * shotInfo.movementDirection.x + (pos.z - target.z) * shotInfo.movementDirection.z)/dist);
+
+        float a = Mathf.Pow(Physics.gravity.y/(2 * Mathf.Tan(Mathf.Deg2Rad * angle)), 2);
+        float b = 0;
+        float c = Physics.gravity.y * H / Mathf.Pow(Mathf.Tan(Mathf.Deg2Rad * angle), 2) - Mathf.Pow(shotInfo.speed, 2);
+        float d = 2 * dist * shotInfo.speed * Mathf.Cos(alpha);
+        float e = Mathf.Pow(H / Mathf.Tan(Mathf.Deg2Rad * angle), 2) - Mathf.Pow(dist, 2);
+
+        float t = SolveQuadraticNewton(a, b, c, d, e, T);
+        
+        Vi = (-Physics.gravity.y * t * t / 2 - H) / (Mathf.Sin(Mathf.Deg2Rad * angle) * t);
+
+        Vy = Vi * Mathf.Sin(Mathf.Deg2Rad * angle);
+        Vz = Vi * Mathf.Cos(Mathf.Deg2Rad * angle);
+
+        transform.LookAt(shotInfo.targetPosition + shotInfo.speed * t * shotInfo.movementDirection);
 
         /*float Determinant = 4 * Mathf.Pow(V, 4) / Mathf.Pow(dist * -Physics.gravity.y, 2) - 4 * (1 - 2 * V * V * H / (dist * dist * -Physics.gravity.y));
         float angle = Mathf.Atan(V * V / (dist * -Physics.gravity.y) + Mathf.Sqrt(Determinant) / 2);
@@ -66,6 +83,8 @@ public class Launcher : MonoBehaviour
         GetComponent<Rigidbody>().velocity = globalVelocity;
 
         canFade = true;
+
+        return t;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -84,5 +103,25 @@ public class Launcher : MonoBehaviour
             canFade = false;
             GetComponent<PumpkinFadeOut>().FadePumpkinOut();
         }
+    }
+
+    public float quadratic_func(float x, float a, float b, float c, float d, float e)
+    {
+        return a * Mathf.Pow(x, 4) + b * Mathf.Pow(x, 3) + c * Mathf.Pow(x, 2) + d * x + e;
+    }
+
+    public float quadratic_func_der(float x, float a, float b, float c, float d, float e)
+    {
+        return 4 * a * Mathf.Pow(x, 3) + 3 * b * Mathf.Pow(x, 2) + 2 * c * x + d;
+    }
+
+    public float SolveQuadraticNewton(float a, float b, float c, float d, float e, float x0)
+    {
+        float x = x0;
+        while (Mathf.Abs(quadratic_func(x, a, b, c, d, e)) > 0.05)
+        {
+            x = x - quadratic_func(x, a, b, c, d, e) / quadratic_func_der(x, a, b, c, d, e);
+        }
+        return x;
     }
 }
