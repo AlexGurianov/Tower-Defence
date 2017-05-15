@@ -14,6 +14,8 @@ public class SceneButtonsController : MonoBehaviour {
     public GameObject wallDirectionPanel;
 
     public GameObject tower1;
+    public GameObject tower2;
+    public GameObject tower3;
     public GameObject tree;
     public GameObject tomb;
     public GameObject wall;
@@ -60,6 +62,16 @@ public class SceneButtonsController : MonoBehaviour {
             case "New Tower1 Button": default:
                 prefab = tower1;
                 type = TowerType.tower1;
+                rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case "New Tower2 Button":
+                prefab = tower2;
+                type = TowerType.tower2;
+                rotation = Quaternion.Euler(-90, 0, 0);
+                break;
+            case "New Tower3 Button":
+                prefab = tower3;
+                type = TowerType.tower3;
                 rotation = Quaternion.Euler(-90, 0, 0);
                 break;
             case "New Tree Button":

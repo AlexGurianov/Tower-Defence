@@ -12,13 +12,34 @@ public class Unit : MonoBehaviour {
 	public float turnDst = 5;
 	public float stoppingDst = 10;
 
+    public float lambdaStop = 0.2f;
+
 	Path path;
+
+    bool isStopped = false;
 
 	void Start() {
         target = GameObject.Find("Target").transform;
         speed *= Random.Range(1f, 1.5f);
         StartCoroutine (UpdatePath ());
+        GetNextStop();
 	}
+
+    void GetNextStop()
+    {
+        float time = RandomStops.TimeToStop(lambdaStop);
+        StartCoroutine(WaitAndStop(time));
+    }
+
+    IEnumerator WaitAndStop(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        isStopped = true;
+        float stopTime = RandomStops.TimeOfStop();
+        yield return new WaitForSeconds(stopTime);
+        isStopped = false;
+        GetNextStop();
+    }
 
 	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
         if (pathSuccessful) {
@@ -70,7 +91,7 @@ public class Unit : MonoBehaviour {
 				}
 			}
 
-			if (followingPath) {
+			if (followingPath && !isStopped) {
 
 				if (pathIndex >= path.slowDownIndex && stoppingDst > 0) {
 					speedPercent = Mathf.Clamp01 (path.turnBoundaries [path.finishLineIndex].DistanceFromPoint (pos2D) / stoppingDst);

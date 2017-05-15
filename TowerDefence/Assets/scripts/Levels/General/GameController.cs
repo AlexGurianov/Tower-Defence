@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour {
 
     public GameObject monster;
     public GameObject tower1;
+    public GameObject tower2;
+    public GameObject tower3;
     public GameObject tree;
     public GameObject tomb;
     public GameObject wall;
@@ -61,6 +63,14 @@ public class GameController : MonoBehaviour {
                 case TowerType.tower1:
                 default:
                     prefab = tower1;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case TowerType.tower2:
+                    prefab = tower2;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case TowerType.tower3:
+                    prefab = tower3;
                     rotation = Quaternion.Euler(-90, 0, 0);
                     break;
                 case TowerType.tree:

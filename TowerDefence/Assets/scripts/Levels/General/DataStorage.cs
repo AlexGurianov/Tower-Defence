@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TowerType { tree, tomb, wall_up, wall_right, wall_down, wall_left, tower1 };
+public enum TowerType { tree, tomb, wall_up, wall_right, wall_down, wall_left, tower1, tower2, tower3 };
 
 public class DataStorage : MonoBehaviour {
 

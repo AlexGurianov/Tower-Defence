@@ -5,10 +5,9 @@ using UnityEngine;
 public class ShootingTowerController : MonoBehaviour {
 
     public float ShootingRange = 10;
+    public float reloadTime = 1f;
 
     private LayerMask EnemiesMask = 1 << 10;
-
-    float reloadTime = 1f;
 
     float lastShotTime;
 
