@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour {
                     monster_obj.GetComponent<MonsterController>().energy = monsterInfo.energy;                    
                 }
                 CreateSavedTowers(savedGame.towers);
+                StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f)));
+                StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f)));
             }
             else
             {

@@ -15,6 +15,7 @@ public class SettingsController : MonoBehaviour {
         musicLevel.value = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.musicLevel;
         gameSoundLevel.value = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.gameSoundLevel;
         navigationSoundLevel.value = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.navigationSoundLevel;
+        SetSounds();
     }
 	
 	// Update is called once per frame
@@ -38,5 +39,16 @@ public class SettingsController : MonoBehaviour {
         }
         else
             SceneManager.LoadScene("MainMenu");
+    }
+
+    void SetSounds()
+    {
+        GameObject.Find("Button Audio Source").GetComponent<AudioSource>().volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.navigationSoundLevel;
+    }
+
+    public void SetChangedSounds()
+    {
+        GameObject.Find("Button Audio Source").GetComponent<AudioSource>().volume = navigationSoundLevel.value;
+
     }
 }
