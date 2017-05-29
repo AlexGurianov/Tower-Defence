@@ -134,6 +134,7 @@ public class GameController : MonoBehaviour {
         monst.GetComponent<MonsterController>().ID = ID;
         monst.GetComponent<MonsterController>().maxEnergy = maxEnergy;
         monst.GetComponent<MonsterController>().energy = energy;
+        monst.GetComponent<MonsterController>().healthSlider.value = energy / maxEnergy;
         DataStorage.dataStorage.monstersDictionary.Add(ID, monst.GetComponent<MonsterController>());
         return monst;
     }
