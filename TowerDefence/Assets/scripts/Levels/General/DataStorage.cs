@@ -14,11 +14,20 @@ public class DataStorage : MonoBehaviour {
     public int currentMaxTowerID = 0;
     public int currentMaxMonsterID = 0;
 
+    public int coins;
+
+    public int mobsKilled = 0;
+
+    public float elapsedTime;
+    public float startTime;
+
     private void Awake()
     {
         if (dataStorage == null)
         {            
-            dataStorage = this;         
+            dataStorage = this;
+            startTime = Time.time;
+            coins = 100;
         }
         else if (dataStorage != this)
         {

@@ -13,6 +13,8 @@ public class Launcher : MonoBehaviour
 
     public ShotInfo shotInfo;
 
+    public float damage = 1f;
+
     private bool canFade = false;
 
     int monstersLayer = 10;

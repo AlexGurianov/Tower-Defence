@@ -11,6 +11,12 @@ public class SavedGame
 
     public bool isSceneDefault = false;
 
+    public int coins = 0;
+
+    public float elapsedTime = 0;
+
+    public int mobsKilled = 0;
+
     public SavedGame()
     {
 

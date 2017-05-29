@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class MapButtonsController : MonoBehaviour {
 
@@ -46,7 +47,8 @@ public class MapButtonsController : MonoBehaviour {
     {
         SceneInfoCarrier.sceneInfoCarrier.saver_Loader.SaveMap(nameInputField.text);
         SetNamePanel.SetActive(false);
-        StartCoroutine(CaptureScreen(nameInputField.text));
+        StartCoroutine(CaptureScreen(SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName 
+            + "_" + nameInputField.text));
         if (!isExiting)
         {
             nameInputField.text = "";            
@@ -68,7 +70,8 @@ public class MapButtonsController : MonoBehaviour {
         yield return null;
         UICanvas.GetComponent<Canvas>().enabled = false;
         yield return new WaitForEndOfFrame();
-        Application.CaptureScreenshot(Application.persistentDataPath + "/" + name + ".png");
+        Application.CaptureScreenshot(System.IO.Path.Combine(Application.persistentDataPath,  name + ".png"));
+        //Application.CaptureScreenshot(name + ".png");
         UICanvas.GetComponent<Canvas>().enabled = true;
         if (isExiting)
             SceneManager.LoadScene("MainMenu");

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -12,6 +13,10 @@ public class GameController : MonoBehaviour {
     public GameObject tomb;
     public GameObject wall;
 
+    public Text ProfileName;
+
+    public Text CoinsText;
+
     // Use this for initialization
     void Start () {
         if (SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame)
@@ -19,14 +24,18 @@ public class GameController : MonoBehaviour {
             SavedGame savedGame = SceneInfoCarrier.sceneInfoCarrier.saver_Loader.LoadGame(SceneInfoCarrier.sceneInfoCarrier.GameName);
             if (savedGame != null)
             {
+                DataStorage.dataStorage.coins = savedGame.coins;
+                DataStorage.dataStorage.elapsedTime = savedGame.elapsedTime;
+                DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
                 foreach (MonsterInfo monsterInfo in savedGame.monsters)
                 {
-                    GameObject monster_obj = CreateMonster(new Vector3(monsterInfo.posx, monsterInfo.posy, monsterInfo.posz));
+                    GameObject monster_obj = CreateMonster(new Vector3(monsterInfo.posx, monsterInfo.posy, monsterInfo.posz), monsterInfo.maxEnergy, monsterInfo.energy);
                     monster_obj.GetComponent<MonsterController>().energy = monsterInfo.energy;                    
                 }
                 CreateSavedTowers(savedGame.towers);
-                StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f)));
-                StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f)));
+                float waveEnergy = 1f;
+                StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f), waveEnergy));
+                StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
             }
             else
             {
@@ -43,9 +52,12 @@ public class GameController : MonoBehaviour {
                     CreateSavedTowers(savedMap.towers);
                 }
             }
-            StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f)));
-            StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f)));
+            float waveEnergy = 1f;
+            StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f), waveEnergy));
+            StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
         }
+        ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
+        GameObject.Find("Coins Text").GetComponent<CoinsController>().UpdateCoinsText();
         SetSounds();
 	}
 	
@@ -106,20 +118,22 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    IEnumerator CreateMonsterWave(float delta, int n, Vector3 pos)
+    IEnumerator CreateMonsterWave(float delta, int n, Vector3 pos, float maxEnergy)
     {
         for (int i = 0; i < n; i++)
         {
-            CreateMonster(pos);
+            CreateMonster(pos, maxEnergy, maxEnergy);
             yield return new WaitForSeconds(delta);
         }
     }
 
-    public GameObject CreateMonster(Vector3 pos)
+    public GameObject CreateMonster(Vector3 pos, float maxEnergy, float energy)
     {
         GameObject monst = Instantiate(monster, pos, Quaternion.identity) as GameObject;
         int ID = DataStorage.dataStorage.currentMaxMonsterID++;
         monst.GetComponent<MonsterController>().ID = ID;
+        monst.GetComponent<MonsterController>().maxEnergy = maxEnergy;
+        monst.GetComponent<MonsterController>().energy = energy;
         DataStorage.dataStorage.monstersDictionary.Add(ID, monst.GetComponent<MonsterController>());
         return monst;
     }

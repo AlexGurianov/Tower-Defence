@@ -23,6 +23,7 @@ public class Shoot : MonoBehaviour {
         mobsBeingShot.Add(shotInfo.ID);
         GameObject newPumpkin = (GameObject)Instantiate(pumpkin, new Vector3(transform.position.x, 0.4f, transform.position.z), Quaternion.identity);
         newPumpkin.GetComponent<Launcher>().shotInfo = shotInfo;
+        newPumpkin.GetComponent<Launcher>().damage = GetComponent<ShootingTowerController>().GetDamage();
         newPumpkin.GetComponent<PushingOut>().shootingTower = this;
     }
 

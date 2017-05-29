@@ -60,6 +60,10 @@ public class Saver_Loader : MonoBehaviour {
         else
             savedGame.isSceneDefault = false;
 
+        savedGame.coins = DataStorage.dataStorage.coins;
+        savedGame.elapsedTime = DataStorage.dataStorage.elapsedTime;
+        savedGame.mobsKilled = 0;
+
         SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName] = savedGame;
     }
 

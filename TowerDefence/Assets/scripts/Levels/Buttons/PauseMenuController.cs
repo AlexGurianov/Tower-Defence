@@ -25,12 +25,14 @@ public class PauseMenuController : MonoBehaviour {
     {
         PauseMenuPanel.SetActive(true);
         Time.timeScale = 0;
+        DataStorage.dataStorage.elapsedTime += Time.time - DataStorage.dataStorage.startTime;
     }
 
     public void ReturnButtonClicked()
     {
         PauseMenuPanel.SetActive(false);
         Time.timeScale = 1;
+        DataStorage.dataStorage.startTime = Time.time;
     }
 
     public void SettingsButtonClicked()
@@ -52,6 +54,7 @@ public class PauseMenuController : MonoBehaviour {
         PauseMenuPanel.SetActive(false);
         SaveQuestionPanel.SetActive(false);
         Time.timeScale = 1;
+        DataStorage.dataStorage.startTime = Time.time;
         InfoPanel.SetActive(true);
         StartCoroutine(InfoPanel.GetComponent<FadeInOut>().ShowInfo(2f));
     }

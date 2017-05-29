@@ -27,7 +27,7 @@ public class SceneInfoCarrier : MonoBehaviour {
             {
                 gameInfo = new GameInfo();
                 Profile defaultProfile = new Profile();
-                defaultProfile.userName = "User";
+                defaultProfile.userName = "Default";
                 gameInfo.profilesList.Add(defaultProfile);
             }
         }

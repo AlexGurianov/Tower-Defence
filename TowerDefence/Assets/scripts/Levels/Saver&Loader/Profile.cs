@@ -12,6 +12,8 @@ public class Profile
     public Dictionary<string, SavedGame> savedGamesDictionary = new Dictionary<string, SavedGame>();
     public Dictionary<string, SavedMap> savedMapsDictionary = new Dictionary<string, SavedMap>();
 
+    public List<SavedResult> savedResultsList = new List<SavedResult>();
+
     public Profile()
     {
 

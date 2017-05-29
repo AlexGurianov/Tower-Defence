@@ -17,6 +17,6 @@ public class SliderController : MonoBehaviour {
 
     public void DisplaySliderValue(float value)
     {
-        transform.Find("Value Text").GetComponent<Text>().text = System.Math.Round(value, 2).ToString();
+        transform.Find("Values Panel").transform.Find("Value Text").GetComponent<Text>().text = System.Math.Round(value, 2).ToString();
     }
 }

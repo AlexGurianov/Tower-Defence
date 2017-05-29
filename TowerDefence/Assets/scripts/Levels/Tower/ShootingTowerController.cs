@@ -7,6 +7,8 @@ public class ShootingTowerController : MonoBehaviour {
     public float ShootingRange = 10;
     public float reloadTime = 1f;
 
+    public float damage = 0.3f;
+
     private LayerMask EnemiesMask = 1 << 10;
 
     float lastShotTime;
@@ -27,9 +29,6 @@ public class ShootingTowerController : MonoBehaviour {
                 if (targetNum != -1)
                 {
                     ShotInfo spot = ChooseSpot(hitColliders[targetNum]);
-                    //Debug.Log(spot.x);
-                    //Debug.Log(spot.z);
-                    //Debug.DrawRay(spot.targetPosition, Vector3.up * 30, Color.white, 5, false);
                     GetComponent<Shoot>().ShootAtTarget(spot);
                     lastShotTime = Time.time;
                 }
@@ -57,5 +56,10 @@ public class ShootingTowerController : MonoBehaviour {
     {
         ShotInfo shotInfo = new ShotInfo(target.transform.position, target.transform.TransformDirection(Vector3.forward), target.GetComponent<Unit>().speed, target.GetComponent<MonsterController>().ID);
         return shotInfo;
+    }
+
+    public float GetDamage()
+    {
+        return damage;
     }
 }

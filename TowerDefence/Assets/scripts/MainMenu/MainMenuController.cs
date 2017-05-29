@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour {
 
     public GameObject ExitConfirmationPanel;
+    public Text ProfileName;
 
 	// Use this for initialization
 	void Start () {
         ExitConfirmationPanel.SetActive(false);
+        ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
         SetSounds();
 	}
 	
@@ -44,6 +46,11 @@ public class MainMenuController : MonoBehaviour {
         SceneManager.LoadScene("NewMap");
     }
 
+    public void HallOFFameButtonClicked()
+    {
+        SceneManager.LoadScene("HallOfFame");
+    }
+
     public void SettingsButtonClicked()
     {
         SceneInfoCarrier.sceneInfoCarrier.comingToSettingsFromGame = false;
@@ -63,6 +70,11 @@ public class MainMenuController : MonoBehaviour {
     public void QuitNoButtonClicked()
     {
         ExitConfirmationPanel.SetActive(false);
+    }
+
+    public void ManageProfilesButtonClicked()
+    {
+        SceneManager.LoadScene("Profiles");
     }
 
     public void SetSounds()

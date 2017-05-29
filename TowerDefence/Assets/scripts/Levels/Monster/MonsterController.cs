@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterController : MonoBehaviour {
 
     public int ID;
     public float CreationTime;
 
+    public float maxEnergy = 1f;
     public float energy = 1f;
+
+    public Slider healthSlider;
 
     Animator animator;
 
@@ -26,9 +30,10 @@ public class MonsterController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer == weaponsLayer && collision.collider.transform.position.y > 1)
+        if (collision.collider.gameObject.layer == weaponsLayer && collision.collider.transform.position.y > 1 && energy >= 0.05)
         {
-            energy = 0;
+            energy -= collision.collider.GetComponent<Launcher>().damage;
+            healthSlider.value = energy / maxEnergy;
             if (energy < 0.05)
             {
                 gameObject.layer = 0;
@@ -36,14 +41,24 @@ public class MonsterController : MonoBehaviour {
                 animator.SetFloat("Energy", energy);
                 DeleteMonster(GetAnimationTime("ghost_die"));
                 GetComponents<AudioSource>()[0].volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.gameSoundLevel;
-                GetComponents<AudioSource>()[0].Play();
+                GetComponents<AudioSource>()[0].Play();                
             }
+            else
+                animator.SetTrigger("Damaged");
         }
+    }
+
+    IEnumerator UpdateAfterMonsterDeath(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject.Find("Coins Text").GetComponent<CoinsController>().AddCoinsForMonster();
+        DataStorage.dataStorage.mobsKilled++;
     }
 
     public void DeleteMonster(float delay)
     {
         DataStorage.dataStorage.monstersDictionary.Remove(ID);
+        StartCoroutine(UpdateAfterMonsterDeath(0.9f*delay));
         Destroy(gameObject, delay);
     }
 
@@ -60,6 +75,6 @@ public class MonsterController : MonoBehaviour {
     public MonsterInfo GiveSaveInfo()
     {
         Vector3 pos = transform.position;
-        return new MonsterInfo(pos.x, pos.y, pos.z, energy);
+        return new MonsterInfo(pos.x, pos.y, pos.z, maxEnergy, energy);
     }
 }
