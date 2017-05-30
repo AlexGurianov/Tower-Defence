@@ -22,7 +22,7 @@ public class Unit : MonoBehaviour {
 
 	void Start() {
         target = GameObject.Find("Target").transform;
-        speed *= Random.Range(1f, 1.5f);
+        speed *= Random.Range(1f, 1.5f)/2;
         StartCoroutine (UpdatePath ());
         GetNextStop();
 	}
