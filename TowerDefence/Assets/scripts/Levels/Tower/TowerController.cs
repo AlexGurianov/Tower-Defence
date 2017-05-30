@@ -15,6 +15,7 @@ public class TowerController : MonoBehaviour {
     float placedTime;
 
     public TowerType type;
+    public bool preset = false;
 
 	// Use this for initialization
 	void Start () {
@@ -57,6 +58,6 @@ public class TowerController : MonoBehaviour {
     public TowerInfo GiveSaveInfo()
     {
         Vector3 pos = transform.position;
-        return new TowerInfo(pos.x, pos.y, pos.z, type);
+        return new TowerInfo(pos.x, pos.y, pos.z, type, preset);
     }
 }

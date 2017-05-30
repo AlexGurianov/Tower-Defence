@@ -18,6 +18,8 @@ public class Unit : MonoBehaviour {
 
     bool isStopped = false;
 
+    bool goingToDie = false;
+
 	void Start() {
         target = GameObject.Find("Target").transform;
         speed *= Random.Range(1f, 1.5f);
@@ -85,7 +87,22 @@ public class Unit : MonoBehaviour {
 			while (path.turnBoundaries [pathIndex].HasCrossedLine (pos2D)) {
 				if (pathIndex == path.finishLineIndex) {
 					followingPath = false;
-					break;
+                    if (!goingToDie)
+                    {
+                        DataStorage.dataStorage.IncrementMobsPassed();
+                        GameObject.Find("MobsPassed Text").GetComponent<MobsPassedController>().UpdateMobsPassed();
+                        StopAllCoroutines();
+                        target = GameObject.Find("DeathPlace").transform;
+                        DataStorage.dataStorage.monstersDictionary.Remove(GetComponent<MonsterController>().ID);
+                        StartCoroutine(UpdatePath());
+                        goingToDie = true;
+                        GetComponent<MonsterController>().invinsible = true;
+                    }
+                    else
+                    {
+                        Destroy(gameObject);
+                    }
+                    break;
 				} else {
 					pathIndex++;
 				}

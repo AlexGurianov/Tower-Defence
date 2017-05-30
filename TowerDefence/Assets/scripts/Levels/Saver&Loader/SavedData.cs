@@ -17,6 +17,8 @@ public class SavedGame
 
     public int mobsKilled = 0;
 
+    public int mobsPassed = 0;
+
     public SavedGame()
     {
 

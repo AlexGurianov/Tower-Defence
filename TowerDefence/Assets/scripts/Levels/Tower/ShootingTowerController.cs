@@ -43,7 +43,8 @@ public class ShootingTowerController : MonoBehaviour {
         {
             if (!GetComponent<Shoot>().mobsBeingShot.Contains(hitColliders[i].GetComponent<MonsterController>().ID)
                 && hitColliders[i].GetComponent<MonsterController>().energy >= 0.05
-                && hitColliders[i].GetComponent<MonsterController>().CreationTime < hitColliders[targetNum].GetComponent<MonsterController>().CreationTime)
+                && hitColliders[i].GetComponent<MonsterController>().CreationTime < hitColliders[targetNum].GetComponent<MonsterController>().CreationTime
+                && !hitColliders[i].GetComponent<MonsterController>().invinsible)
                 targetNum = i;
         }
         if (hitColliders[targetNum].GetComponent<MonsterController>().energy < 0.05 || GetComponent<Shoot>().mobsBeingShot.Contains(hitColliders[targetNum].GetComponent<MonsterController>().ID))

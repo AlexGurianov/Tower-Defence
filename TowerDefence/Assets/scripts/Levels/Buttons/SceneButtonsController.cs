@@ -111,6 +111,7 @@ public class SceneButtonsController : MonoBehaviour {
         }
         GameObject tower = (GameObject)Instantiate(prefab, new Vector3(0f, 0f, 0f), rotation);
         tower.GetComponent<TowerController>().type = type;
+        tower.GetComponent<TowerController>().preset = false;
     }
 
     public void DeleteTowerButtonClicked()
@@ -140,12 +141,15 @@ public class SceneButtonsController : MonoBehaviour {
         {
             towerSelectionStays = false;
             DeselectTower();
-            deleteTowerButton.SetActive(true);
-            Vector3 towerPos = DataStorage.dataStorage.towersDictionary[TowerID].transform.position;
-            towerPos.x -= DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.x * 0.2f;
-            towerPos.y += DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.y;
-            Vector3 crossPos = cam.WorldToScreenPoint(towerPos);
-            deleteTowerButton.transform.position = crossPos;
+            if (!DataStorage.dataStorage.towersDictionary[TowerID].preset)
+            {
+                deleteTowerButton.SetActive(true);
+                Vector3 towerPos = DataStorage.dataStorage.towersDictionary[TowerID].transform.position;
+                towerPos.x -= DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.x * 0.2f;
+                towerPos.y += DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.y;
+                Vector3 crossPos = cam.WorldToScreenPoint(towerPos);
+                deleteTowerButton.transform.position = crossPos;
+            }
             while (Input.GetMouseButton(0))
                 yield return null;
             selectedTowerID = TowerID;

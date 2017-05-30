@@ -19,7 +19,7 @@ public class CoinsController : MonoBehaviour {
 
     public void AddCoinsForMonster()
     {
-        DataStorage.dataStorage.coins += 20;
+        DataStorage.dataStorage.coins += 10;
         UpdateCoinsText();
     }
 

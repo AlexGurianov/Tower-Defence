@@ -15,8 +15,6 @@ public class GameController : MonoBehaviour {
 
     public Text ProfileName;
 
-    public Text CoinsText;
-
     // Use this for initialization
     void Start () {
         if (SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame)
@@ -27,6 +25,7 @@ public class GameController : MonoBehaviour {
                 DataStorage.dataStorage.coins = savedGame.coins;
                 DataStorage.dataStorage.elapsedTime = savedGame.elapsedTime;
                 DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
+                DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
                 foreach (MonsterInfo monsterInfo in savedGame.monsters)
                 {
                     GameObject monster_obj = CreateMonster(new Vector3(monsterInfo.posx, monsterInfo.posy, monsterInfo.posz), monsterInfo.maxEnergy, monsterInfo.energy);
@@ -58,6 +57,7 @@ public class GameController : MonoBehaviour {
         }
         ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
         GameObject.Find("Coins Text").GetComponent<CoinsController>().UpdateCoinsText();
+        GameObject.Find("MobsPassed Text").GetComponent<MobsPassedController>().UpdateMobsPassed();
         SetSounds();
 	}
 	
@@ -114,6 +114,7 @@ public class GameController : MonoBehaviour {
             }
             GameObject tower = (GameObject)Instantiate(prefab, new Vector3(towerInfo.posx, towerInfo.posy, towerInfo.posz), rotation);
             tower.GetComponent<TowerController>().type = towerInfo.towerType;
+            tower.GetComponent<TowerController>().preset = towerInfo.preset;
             tower.GetComponent<TowerController>().placeTower();
         }
     }
@@ -160,5 +161,10 @@ public class GameController : MonoBehaviour {
     {
         GameObject.Find("UI Canvas").GetComponent<AudioSource>().volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.musicLevel;
         GameObject.Find("Button Audio Source").GetComponent<AudioSource>().volume = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].settings.navigationSoundLevel;
+    }
+
+    public void EndGame()
+    {
+        GameObject.Find("GameOverController").GetComponent<GameOverController>().CallGameOverPanel();
     }
 }

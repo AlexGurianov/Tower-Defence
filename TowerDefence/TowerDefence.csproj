@@ -114,11 +114,15 @@
     <Compile Include="Assets\external assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\external assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
     <Compile Include="Assets\scripts\HallOfFame\HallOfFameController.cs" />
+    <Compile Include="Assets\scripts\HallOfFame\ResultPanel.cs" />
+    <Compile Include="Assets\scripts\HallOfFame\ResultPanelInfo.cs" />
+    <Compile Include="Assets\scripts\Levels\Buttons\GameOverController.cs" />
     <Compile Include="Assets\scripts\Levels\Buttons\PauseMenuController.cs" />
     <Compile Include="Assets\scripts\Levels\Buttons\SceneButtonsController.cs" />
     <Compile Include="Assets\scripts\Levels\Coins\CoinsController.cs" />
     <Compile Include="Assets\scripts\Levels\General\DataStorage.cs" />
     <Compile Include="Assets\scripts\Levels\General\GameController.cs" />
+    <Compile Include="Assets\scripts\Levels\MobsPassedCounter\MobsPassedController.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\MonsterController.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Grid.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Heap.cs" />

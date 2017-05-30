@@ -62,7 +62,8 @@ public class Saver_Loader : MonoBehaviour {
 
         savedGame.coins = DataStorage.dataStorage.coins;
         savedGame.elapsedTime = DataStorage.dataStorage.elapsedTime;
-        savedGame.mobsKilled = 0;
+        savedGame.mobsKilled = DataStorage.dataStorage.mobsKilled;
+        savedGame.mobsPassed = DataStorage.dataStorage.mobsPassed;
 
         SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName] = savedGame;
     }
@@ -81,6 +82,8 @@ public class Saver_Loader : MonoBehaviour {
 
         foreach (int key in DataStorage.dataStorage.towersDictionary.Keys)
             savedMap.towers.Add(DataStorage.dataStorage.towersDictionary[key].GiveSaveInfo());
+        foreach (TowerInfo towerInfo in savedMap.towers)
+            towerInfo.preset = true;
 
         SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedMapsDictionary[mapName] = savedMap;
     }

@@ -6,6 +6,8 @@ public enum TowerType { tree, tomb, wall_up, wall_right, wall_down, wall_left, t
 
 public class DataStorage : MonoBehaviour {
 
+    public const int MAXMOBSPASSED = 20;
+
     public static DataStorage dataStorage;
 
     public Dictionary<int, TowerController> towersDictionary = new Dictionary<int, TowerController>();
@@ -17,6 +19,8 @@ public class DataStorage : MonoBehaviour {
     public int coins;
 
     public int mobsKilled = 0;
+
+    public int mobsPassed = 0;
 
     public float elapsedTime;
     public float startTime;
@@ -45,4 +49,10 @@ public class DataStorage : MonoBehaviour {
 		
 	}
 
+    public void IncrementMobsPassed()
+    {
+        mobsPassed++;
+        if (mobsPassed == MAXMOBSPASSED)
+            GameObject.Find("GameController").GetComponent<GameController>().EndGame();
+    }
 }

@@ -5,11 +5,12 @@ using System.Collections.Generic;
 [Serializable]
 
 public class SavedResult {
-    public int timePlayed = 0;
+    public float timePlayed = 0;
     public int mobsKilled = 0;
 
-    public SavedResult()
+    public SavedResult(float time, int mobs)
     {
-
+        timePlayed = time;
+        mobsKilled = mobs;
     }
 }

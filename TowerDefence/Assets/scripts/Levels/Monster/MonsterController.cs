@@ -17,6 +17,8 @@ public class MonsterController : MonoBehaviour {
 
     int weaponsLayer = 11;
 
+    public bool invinsible = false;
+
 	// Use this for initialization
 	void Start () {
         CreationTime = Time.time;
