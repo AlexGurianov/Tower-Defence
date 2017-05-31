@@ -20,9 +20,14 @@ public class MapTileButton : MonoBehaviour {
     {
         SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = false;
         SceneInfoCarrier.sceneInfoCarrier.GameName = transform.parent.Find("Map Name").GetComponent<Text>().text;
-        if (SceneInfoCarrier.sceneInfoCarrier.GameName == "Default")
-            SceneManager.LoadScene("Level1Test");
+        if (Application.platform == RuntimePlatform.Android)
+            SceneManager.LoadScene("Loading");
         else
-            SceneManager.LoadScene("Level");
+        {
+            if (SceneInfoCarrier.sceneInfoCarrier.GameName == "Default")
+                SceneManager.LoadScene("Level1Test");
+            else
+                SceneManager.LoadScene("Level");
+        }
     } 
 }

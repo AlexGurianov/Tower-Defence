@@ -11,6 +11,7 @@ public class SceneInfoCarrier : MonoBehaviour {
     public static SceneInfoCarrier sceneInfoCarrier;
 
     public bool OpenSavedGame = false;
+    public bool OpenNewMap = false;
     public string GameName = "";
 
     public bool comingToSettingsFromGame = false;

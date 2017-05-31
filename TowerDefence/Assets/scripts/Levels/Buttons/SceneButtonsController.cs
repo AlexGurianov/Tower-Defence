@@ -49,69 +49,75 @@ public class SceneButtonsController : MonoBehaviour {
 
     public void AddWallButtonClicked()
     {
-        wallDirectionPanel.SetActive(true);
+        if (!DataStorage.dataStorage.isPlacingTower)
+            wallDirectionPanel.SetActive(true);
     }
 
     public void AddTowerButtonClicked()
     {
-        GameObject prefab;
-        TowerType type;
-        Quaternion rotation;
-        switch (EventSystem.current.currentSelectedGameObject.name)
+        if (!DataStorage.dataStorage.isPlacingTower)
         {
-            case "New Tower1 Button": default:
-                prefab = tower1;
-                type = TowerType.tower1;
-                rotation = Quaternion.Euler(-90, 0, 0);
-                break;
-            case "New Tower2 Button":
-                prefab = tower2;
-                type = TowerType.tower2;
-                rotation = Quaternion.Euler(-90, 0, 0);
-                break;
-            case "New Tower3 Button":
-                prefab = tower3;
-                type = TowerType.tower3;
-                rotation = Quaternion.Euler(-90, 0, 0);
-                break;
-            case "New Tree Button":
-                prefab = tree;
-                type = TowerType.tree;
-                rotation = Quaternion.Euler(-90, 0, 0);
-                break;
-            case "New Tomb Button":
-                prefab = tomb;
-                type = TowerType.tomb;
-                rotation = Quaternion.Euler(-90, 0, 0);
-                break;
-            case "Wall Up Button":
-                prefab = wall;
-                type = TowerType.wall_up;
-                rotation = Quaternion.Euler(0, 90, 0);
-                wallDirectionPanel.SetActive(false);
-                break;            
-            case "Wall Right Button":
-                prefab = wall;
-                type = TowerType.wall_right;
-                rotation = Quaternion.Euler(0, 180, 0);
-                wallDirectionPanel.SetActive(false);
-                break;
-            case "Wall Down Button":
-                prefab = wall;
-                type = TowerType.wall_down;
-                rotation = Quaternion.Euler(0, 270, 0);
-                wallDirectionPanel.SetActive(false);
-                break;
-            case "Wall Left Button":
-                prefab = wall;
-                type = TowerType.wall_left;
-                rotation = Quaternion.Euler(0, 0, 0);
-                wallDirectionPanel.SetActive(false);
-                break;
+            GameObject prefab;
+            TowerType type;
+            Quaternion rotation;
+            switch (EventSystem.current.currentSelectedGameObject.name)
+            {
+                case "New Tower1 Button":
+                default:
+                    prefab = tower1;
+                    type = TowerType.tower1;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case "New Tower2 Button":
+                    prefab = tower2;
+                    type = TowerType.tower2;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case "New Tower3 Button":
+                    prefab = tower3;
+                    type = TowerType.tower3;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case "New Tree Button":
+                    prefab = tree;
+                    type = TowerType.tree;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case "New Tomb Button":
+                    prefab = tomb;
+                    type = TowerType.tomb;
+                    rotation = Quaternion.Euler(-90, 0, 0);
+                    break;
+                case "Wall Up Button":
+                    prefab = wall;
+                    type = TowerType.wall_up;
+                    rotation = Quaternion.Euler(0, 90, 0);
+                    wallDirectionPanel.SetActive(false);
+                    break;
+                case "Wall Right Button":
+                    prefab = wall;
+                    type = TowerType.wall_right;
+                    rotation = Quaternion.Euler(0, 180, 0);
+                    wallDirectionPanel.SetActive(false);
+                    break;
+                case "Wall Down Button":
+                    prefab = wall;
+                    type = TowerType.wall_down;
+                    rotation = Quaternion.Euler(0, 270, 0);
+                    wallDirectionPanel.SetActive(false);
+                    break;
+                case "Wall Left Button":
+                    prefab = wall;
+                    type = TowerType.wall_left;
+                    rotation = Quaternion.Euler(0, 0, 0);
+                    wallDirectionPanel.SetActive(false);
+                    break;
+            }
+            GameObject tower = (GameObject)Instantiate(prefab, new Vector3(0f, 0f, 0f), rotation);
+            tower.GetComponent<TowerController>().type = type;
+            tower.GetComponent<TowerController>().preset = false;
+            DataStorage.dataStorage.isPlacingTower = true;
         }
-        GameObject tower = (GameObject)Instantiate(prefab, new Vector3(0f, 0f, 0f), rotation);
-        tower.GetComponent<TowerController>().type = type;
-        tower.GetComponent<TowerController>().preset = false;
     }
 
     public void DeleteTowerButtonClicked()

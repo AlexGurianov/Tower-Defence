@@ -25,6 +25,8 @@ public class DataStorage : MonoBehaviour {
     public float elapsedTime;
     public float startTime;
 
+    public bool isPlacingTower = false;
+
     private void Awake()
     {
         if (dataStorage == null)

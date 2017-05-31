@@ -15,9 +15,10 @@ public class MapListController : MonoBehaviour {
         {
             GameObject newButton = Instantiate(mapTile) as GameObject;
             newButton.transform.Find("Map Name").GetComponent<Text>().text = map_name;
-            if (File.Exists(Application.persistentDataPath + "/" + SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName + "_" + map_name + ".png")) {
-                byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + "/" +
-                    SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName + "_" + map_name + ".png");
+            string screenPath = Application.persistentDataPath + "/" + SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName.Replace(" ", "_")
+                + "_" + map_name.Replace(" ", "_") + ".png";
+            if (File.Exists(screenPath)) {
+                byte[] bytes = File.ReadAllBytes(screenPath);
                 Texture2D texture = new Texture2D(1, 1, TextureFormat.RGB24, false);
                 texture.filterMode = FilterMode.Trilinear;
                 texture.LoadImage(bytes);

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PushingOut : MonoBehaviour {
 
-    const int pushSteps = 20;
-    const float waitTime = 0.01f;
+    const float pushTime = 0.2f;
 
     public Shoot shootingTower;
 
@@ -23,12 +22,20 @@ public class PushingOut : MonoBehaviour {
     }
 
     IEnumerator Lift(float pumpkinHeight)
-    {  
+    {
+        /*
         float delta = pumpkinHeight / pushSteps;
         for (int i = 0; i < pushSteps; i++)
         {
             transform.Translate(0, delta, 0);
             yield return new WaitForSeconds(waitTime);
+        }*/
+        float time = 0;
+        while (time < pushTime)
+        {
+            transform.Translate(0, pumpkinHeight *(Mathf.Clamp01((time + Time.deltaTime) / pushTime) - Mathf.Clamp01(time / pushTime)), 0);
+            time += Time.deltaTime;
+            yield return null;            
         }
         GetComponent<Rigidbody>().useGravity = true;
         foreach (Collider c in GetComponents<Collider>())

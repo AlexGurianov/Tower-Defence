@@ -70,8 +70,10 @@ public class MapButtonsController : MonoBehaviour {
         yield return null;
         UICanvas.GetComponent<Canvas>().enabled = false;
         yield return new WaitForEndOfFrame();
-        Application.CaptureScreenshot(System.IO.Path.Combine(Application.persistentDataPath,  name + ".png"));
-        //Application.CaptureScreenshot(name + ".png");
+        if (Application.platform == RuntimePlatform.Android)
+            Application.CaptureScreenshot(name.Replace(" ", "_") + ".png");
+        else
+            Application.CaptureScreenshot(System.IO.Path.Combine(Application.persistentDataPath, name.Replace(" ", "_") + ".png"));
         UICanvas.GetComponent<Canvas>().enabled = true;
         if (isExiting)
             SceneManager.LoadScene("MainMenu");

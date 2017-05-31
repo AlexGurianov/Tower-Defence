@@ -34,16 +34,27 @@ public class MainMenuController : MonoBehaviour {
         {
             SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame = true;
             SceneInfoCarrier.sceneInfoCarrier.GameName = "Saved Game";
-            if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[SceneInfoCarrier.sceneInfoCarrier.GameName].isSceneDefault)
-                SceneManager.LoadScene("Level1Test");
+            if (Application.platform == RuntimePlatform.Android)
+                SceneManager.LoadScene("Loading");
             else
-                SceneManager.LoadScene("Level");
+            {
+                if (SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[SceneInfoCarrier.sceneInfoCarrier.GameName].isSceneDefault)
+                    SceneManager.LoadScene("Level1Test");
+                else
+                    SceneManager.LoadScene("Level");
+            }
         }
     }
 
     public void NewMapButtonClicked()
     {
-        SceneManager.LoadScene("NewMap");
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = true;
+            SceneManager.LoadScene("Loading");
+        }
+        else
+            SceneManager.LoadScene("NewMap");
     }
 
     public void HallOFFameButtonClicked()

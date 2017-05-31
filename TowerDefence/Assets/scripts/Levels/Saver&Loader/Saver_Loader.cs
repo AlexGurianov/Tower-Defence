@@ -96,6 +96,14 @@ public class Saver_Loader : MonoBehaviour {
             return null;
     }
 
+    public void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+            SaveAll();
+        else
+            LoadAll();
+    }
+
     public void OnApplicationQuit()
     {
         SaveAll();

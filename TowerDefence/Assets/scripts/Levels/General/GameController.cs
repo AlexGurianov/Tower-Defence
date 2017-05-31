@@ -22,16 +22,16 @@ public class GameController : MonoBehaviour {
             SavedGame savedGame = SceneInfoCarrier.sceneInfoCarrier.saver_Loader.LoadGame(SceneInfoCarrier.sceneInfoCarrier.GameName);
             if (savedGame != null)
             {
-                DataStorage.dataStorage.coins = savedGame.coins;
-                DataStorage.dataStorage.elapsedTime = savedGame.elapsedTime;
-                DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
-                DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
                 foreach (MonsterInfo monsterInfo in savedGame.monsters)
                 {
                     GameObject monster_obj = CreateMonster(new Vector3(monsterInfo.posx, monsterInfo.posy, monsterInfo.posz), monsterInfo.maxEnergy, monsterInfo.energy);
                     monster_obj.GetComponent<MonsterController>().energy = monsterInfo.energy;                    
                 }
                 CreateSavedTowers(savedGame.towers);
+                DataStorage.dataStorage.coins = savedGame.coins;
+                DataStorage.dataStorage.elapsedTime = savedGame.elapsedTime;
+                DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
+                DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
                 float waveEnergy = 1f;
                 StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f), waveEnergy));
                 StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
