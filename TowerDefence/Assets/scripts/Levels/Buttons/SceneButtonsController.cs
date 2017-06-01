@@ -10,6 +10,8 @@ public class SceneButtonsController : MonoBehaviour {
     public PauseMenuController pauseMenuController;
 
     public GameObject deleteTowerButton;
+    public GameObject upgradeTowerButton;
+    public GameObject upgradeInfoPanel;
 
     public GameObject wallDirectionPanel;
 
@@ -27,7 +29,9 @@ public class SceneButtonsController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         deleteTowerButton.SetActive(false);
+        upgradeTowerButton.SetActive(false);
         wallDirectionPanel.SetActive(false);
+        upgradeInfoPanel.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -36,7 +40,8 @@ public class SceneButtonsController : MonoBehaviour {
                  wallDirectionPanel.GetComponent<RectTransform>(), Input.mousePosition))
             wallDirectionPanel.SetActive(false);
         if (selectedTowerID != -1 && Input.GetMouseButton(0) && !towerSelectionStays && !RectTransformUtility.RectangleContainsScreenPoint(
-                 deleteTowerButton.GetComponent<RectTransform>(), Input.mousePosition))
+                 deleteTowerButton.GetComponent<RectTransform>(), Input.mousePosition) && !RectTransformUtility.RectangleContainsScreenPoint(
+                 upgradeTowerButton.GetComponent<RectTransform>(), Input.mousePosition))
         {
             DeselectTower();
         }
@@ -116,6 +121,16 @@ public class SceneButtonsController : MonoBehaviour {
             GameObject tower = (GameObject)Instantiate(prefab, new Vector3(0f, 0f, 0f), rotation);
             tower.GetComponent<TowerController>().type = type;
             tower.GetComponent<TowerController>().preset = false;
+            switch (type)
+            {
+                case TowerType.tower1:
+                case TowerType.tower2:
+                case TowerType.tower3:
+                    tower.GetComponent<TowerController>().level = 1;
+                    tower.GetComponent<ShootingTowerController>().towerAtLevel =
+                        GameObject.Find("UpgradeController").GetComponent<UpgradeController>().towersLevelInfo[type][0];
+                    break;
+            }
             DataStorage.dataStorage.isPlacingTower = true;
         }
     }
@@ -124,14 +139,23 @@ public class SceneButtonsController : MonoBehaviour {
     {
         if (selectedTowerID != -1)
         {
-            //Destroy(DataStorage.dataStorage.towersDictionary[selectedTowerID].gameObject);
             DataStorage.dataStorage.towersDictionary[selectedTowerID].DeleteTower();
-            //DataStorage.dataStorage.towersDictionary.Remove(selectedTowerID);
             selectedTowerID = -1;
             deleteTowerButton.SetActive(false);
+            upgradeTowerButton.SetActive(false);
+            upgradeInfoPanel.SetActive(false);
             GameObject gameController = GameObject.Find("GameController");
             if (gameController != null)
                 StartCoroutine(gameController.GetComponent<GameController>().UpdateMonstersPaths());
+        }
+    }
+
+    public void UpgradeTowerButtonClicked()
+    {
+        if (selectedTowerID != -1)
+        {
+            DataStorage.dataStorage.towersDictionary[selectedTowerID].GetComponent<ShootingTowerController>().Upgrade();
+            DeselectTower();
         }
     }
 
@@ -139,6 +163,8 @@ public class SceneButtonsController : MonoBehaviour {
     {
         selectedTowerID = -1;
         deleteTowerButton.SetActive(false);
+        upgradeTowerButton.SetActive(false);
+        upgradeInfoPanel.SetActive(false);
     } 
 
     public IEnumerator SelectTower(int TowerID)
@@ -156,11 +182,30 @@ public class SceneButtonsController : MonoBehaviour {
                 Vector3 crossPos = cam.WorldToScreenPoint(towerPos);
                 deleteTowerButton.transform.position = crossPos;
             }
+            if ((DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower1 ||
+                DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower2 ||
+                DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower3)
+                && DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<ShootingTowerController>().CanUpgrade())
+            {
+                MakeUpgradeInfoPanel(TowerID);
+                upgradeTowerButton.SetActive(true);
+                Vector3 towerPos = DataStorage.dataStorage.towersDictionary[TowerID].transform.position;
+                towerPos.x += DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.x*0.8f;
+                towerPos.y += DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<Collider>().bounds.size.y;
+                Vector3 updatePos = cam.WorldToScreenPoint(towerPos);
+                upgradeTowerButton.transform.position = updatePos;
+            }
             while (Input.GetMouseButton(0))
                 yield return null;
             selectedTowerID = TowerID;
         }
         else
             towerSelectionStays = true;
+    }
+
+    void MakeUpgradeInfoPanel(int ID)
+    {
+        GameObject.Find("UpgradeController").GetComponent<UpgradeController>().UpdateUpgradeInfo(DataStorage.dataStorage.towersDictionary[ID].type, DataStorage.dataStorage.towersDictionary[ID].level);
+        upgradeInfoPanel.SetActive(true);
     }
 }

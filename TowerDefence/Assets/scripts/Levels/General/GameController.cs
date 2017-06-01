@@ -115,6 +115,14 @@ public class GameController : MonoBehaviour {
             GameObject tower = (GameObject)Instantiate(prefab, new Vector3(towerInfo.posx, towerInfo.posy, towerInfo.posz), rotation);
             tower.GetComponent<TowerController>().type = towerInfo.towerType;
             tower.GetComponent<TowerController>().preset = towerInfo.preset;
+            switch (towerInfo.towerType)
+            {
+                case TowerType.tower1: case TowerType.tower2: case TowerType.tower3:
+                    tower.GetComponent<TowerController>().level = towerInfo.level;
+                    tower.GetComponent<ShootingTowerController>().towerAtLevel =
+                        GameObject.Find("UpgradeController").GetComponent<UpgradeController>().towersLevelInfo[towerInfo.towerType][towerInfo.level - 1];
+                    break;
+            }            
             tower.GetComponent<TowerController>().placeTower();
         }
     }

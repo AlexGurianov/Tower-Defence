@@ -150,6 +150,7 @@
     <Compile Include="Assets\scripts\Levels\Tower\DragDrop.cs" />
     <Compile Include="Assets\scripts\Levels\Tower\ShootingTowerController.cs" />
     <Compile Include="Assets\scripts\Levels\Tower\TowerController.cs" />
+    <Compile Include="Assets\scripts\Levels\Upgrade\UpgradeController.cs" />
     <Compile Include="Assets\scripts\Loading\LoadingController.cs" />
     <Compile Include="Assets\scripts\MainMenu\MainMenuController.cs" />
     <Compile Include="Assets\scripts\MapChoice\MapListController.cs" />

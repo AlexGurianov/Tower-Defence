@@ -32,9 +32,11 @@ public class MonsterController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer == weaponsLayer && collision.collider.transform.position.y > 1 && energy >= 0.05)
+        if (collision.collider.gameObject.layer == weaponsLayer && collision.collider.transform.position.y > 1
+            && !collision.collider.GetComponent<Launcher>().ifHadHit && energy >= 0.05)
         {
             energy -= collision.collider.GetComponent<Launcher>().damage;
+            collision.collider.GetComponent<Launcher>().ifHadHit = true;
             healthSlider.value = energy / maxEnergy;
             if (energy < 0.05)
             {

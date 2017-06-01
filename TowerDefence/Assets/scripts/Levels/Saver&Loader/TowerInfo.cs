@@ -15,12 +15,15 @@ public class TowerInfo {
 
     public bool preset;
 
-    public TowerInfo(float px, float py, float pz, TowerType type, bool prset)
+    public int level;
+
+    public TowerInfo(float px, float py, float pz, TowerType type, bool prset, int l)
     {
         towerType = type;
         posx = px;
         posy = py;
         posz = pz;
         preset = prset;
+        level = l;
     }
 }

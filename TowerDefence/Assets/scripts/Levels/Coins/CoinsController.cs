@@ -61,6 +61,12 @@ public class CoinsController : MonoBehaviour {
         UpdateCoinsText();
     }
 
+    public void SubtractCoinsForUpgrade(int cost)
+    {
+        DataStorage.dataStorage.coins -= cost;
+        UpdateCoinsText();
+    }
+
     public void RefundCoinsForTower(TowerType towerType)
     {
         DataStorage.dataStorage.coins += Mathf.FloorToInt(towerCosts[towerType] * 0.5f);

@@ -13,6 +13,8 @@ public class ShootingTowerController : MonoBehaviour {
 
     float lastShotTime;
 
+    public TowerAtLevel towerAtLevel;
+
     // Use this for initialization
     void Start () {
         lastShotTime = -reloadTime;
@@ -61,6 +63,18 @@ public class ShootingTowerController : MonoBehaviour {
 
     public float GetDamage()
     {
-        return damage;
+        return damage*towerAtLevel.damage_coef;
+    }
+
+    public bool CanUpgrade()
+    {
+        return towerAtLevel.nextUpdateCost != -1 && towerAtLevel.nextUpdateCost <= DataStorage.dataStorage.coins;
+    }
+
+    public void Upgrade()
+    {
+        GameObject.Find("Coins Text").GetComponent<CoinsController>().SubtractCoinsForUpgrade(towerAtLevel.nextUpdateCost);
+        GetComponent<TowerController>().level++;
+        towerAtLevel = GameObject.Find("UpgradeController").GetComponent<UpgradeController>().towersLevelInfo[GetComponent<TowerController>().type][GetComponent<TowerController>().level - 1];
     }
 }

@@ -19,6 +19,8 @@ public class Launcher : MonoBehaviour
 
     int monstersLayer = 10;
 
+    public bool ifHadHit = false;
+
     public float Launch()
     {
         Vector3 target = shotInfo.targetPosition;
