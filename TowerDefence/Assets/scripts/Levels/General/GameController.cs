@@ -33,8 +33,7 @@ public class GameController : MonoBehaviour {
                 DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
                 DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
                 float waveEnergy = 1f;
-                StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f), waveEnergy));
-                StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
+                initWaves(waveEnergy);
             }
             else
             {
@@ -52,14 +51,19 @@ public class GameController : MonoBehaviour {
                 }
             }
             float waveEnergy = 1f;
-            StartCoroutine(CreateMonsterWave(3, 20, new Vector3(0f, 0f, 0f), waveEnergy));
-            StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
+            initWaves(waveEnergy);
         }
         ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
         GameObject.Find("Coins Text").GetComponent<CoinsController>().UpdateCoinsText();
         GameObject.Find("MobsPassed Text").GetComponent<MobsPassedController>().UpdateMobsPassed();
         SetSounds();
 	}
+
+    private void initWaves(float waveEnergy)
+    {
+        StartCoroutine(CreateMonsterWave(3, 20, new Vector3(21f, 0f, -25f), waveEnergy));
+        //StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
+    } 
 	
 	// Update is called once per frame
 	void Update () {
