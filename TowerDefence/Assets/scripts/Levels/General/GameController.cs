@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
                 DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
                 DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
                 float waveEnergy = 1f;
-                initWaves(waveEnergy);
+                initWaves(3, waveEnergy);
             }
             else
             {
@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour {
                 }
             }
             float waveEnergy = 1f;
-            initWaves(waveEnergy);
+            initWaves(3, waveEnergy);
         }
         ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
         GameObject.Find("Coins Text").GetComponent<CoinsController>().UpdateCoinsText();
@@ -59,9 +59,9 @@ public class GameController : MonoBehaviour {
         SetSounds();
 	}
 
-    private void initWaves(float waveEnergy)
+    public void initWaves(int num, float waveEnergy)
     {
-        StartCoroutine(CreateMonsterWave(3, 20, new Vector3(21f, 0f, -25f), waveEnergy));
+        StartCoroutine(CreateMonsterWave(3, num, new Vector3(21f, 0f, -25f), waveEnergy));
         //StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
     } 
 	
@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    IEnumerator CreateMonsterWave(float delta, int n, Vector3 pos, float maxEnergy)
+    public IEnumerator CreateMonsterWave(float delta,  int n, Vector3 pos, float maxEnergy)
     {
         for (int i = 0; i < n; i++)
         {

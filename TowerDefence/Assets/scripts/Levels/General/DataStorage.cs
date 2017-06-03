@@ -57,4 +57,14 @@ public class DataStorage : MonoBehaviour {
         if (mobsPassed == MAXMOBSPASSED)
             GameObject.Find("GameController").GetComponent<GameController>().EndGame();
     }
+
+    public void RemoveMob(int id)
+    {
+        monstersDictionary.Remove(id);
+
+        if (monstersDictionary.Count <= 0)
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().initWaves(5, 1f);
+        }        
+    }
 }
