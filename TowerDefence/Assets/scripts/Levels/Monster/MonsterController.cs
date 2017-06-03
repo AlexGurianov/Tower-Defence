@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MonsterController : MonoBehaviour {
 
@@ -61,7 +62,8 @@ public class MonsterController : MonoBehaviour {
 
     public void DeleteMonster(float delay)
     {
-        DataStorage.dataStorage.monstersDictionary.Remove(ID);
+        //DataStorage.dataStorage.monstersDictionary.Remove(ID);
+        DataStorage.dataStorage.RemoveMob(ID);
         StartCoroutine(UpdateAfterMonsterDeath(0.9f*delay));
         Destroy(gameObject, delay);
     }
