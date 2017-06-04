@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShootingTowerController : MonoBehaviour {
 
+    public GameObject LevelQuad;
+
     public float ShootingRange = 10;
     public float reloadTime = 1f;
 
@@ -76,5 +78,6 @@ public class ShootingTowerController : MonoBehaviour {
         GameObject.Find("Coins Text").GetComponent<CoinsController>().SubtractCoinsForUpgrade(towerAtLevel.nextUpdateCost);
         GetComponent<TowerController>().level++;
         towerAtLevel = GameObject.Find("UpgradeController").GetComponent<UpgradeController>().towersLevelInfo[GetComponent<TowerController>().type][GetComponent<TowerController>().level - 1];
+        LevelQuad.GetComponent<Renderer>().material = towerAtLevel.material;
     }
 }

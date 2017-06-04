@@ -27,6 +27,9 @@ public class DataStorage : MonoBehaviour {
 
     public bool isPlacingTower = false;
 
+    public int WaveNo = 1;
+    public int mobsCreated = 0;
+
     private void Awake()
     {
         if (dataStorage == null)
@@ -64,7 +67,11 @@ public class DataStorage : MonoBehaviour {
 
         if (monstersDictionary.Count <= 0)
         {
-            GameObject.Find("GameController").GetComponent<GameController>().initWaves(5, 1f);
+            WaveNo++;
+            mobsCreated = 0;
+            int num = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(WaveNo);
+            float energy = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWaveEnergy(WaveNo);
+            GameObject.Find("GameController").GetComponent<GameController>().initWaves(num, energy);
         }        
     }
 }

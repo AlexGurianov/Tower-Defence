@@ -19,6 +19,10 @@ public class SavedGame
 
     public int mobsPassed = 0;
 
+    public int waveNo = 1;
+
+    public int mobsCreated = 0;
+
     public SavedGame()
     {
 

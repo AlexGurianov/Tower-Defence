@@ -32,8 +32,12 @@ public class GameController : MonoBehaviour {
                 DataStorage.dataStorage.elapsedTime = savedGame.elapsedTime;
                 DataStorage.dataStorage.mobsKilled = savedGame.mobsKilled;
                 DataStorage.dataStorage.mobsPassed = savedGame.mobsPassed;
-                float waveEnergy = 1f;
-                initWaves(3, waveEnergy);
+                DataStorage.dataStorage.WaveNo = savedGame.waveNo;
+                DataStorage.dataStorage.mobsCreated = savedGame.mobsCreated;
+
+                int num = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(savedGame.waveNo) - savedGame.mobsCreated;
+                float energy = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWaveEnergy(savedGame.waveNo);
+                initWaves(num, energy);
             }
             else
             {
@@ -50,8 +54,9 @@ public class GameController : MonoBehaviour {
                     CreateSavedTowers(savedMap.towers);
                 }
             }
-            float waveEnergy = 1f;
-            initWaves(3, waveEnergy);
+            int num = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(1);
+            float energy = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWaveEnergy(1);
+            initWaves(num, energy);
         }
         ProfileName.text = SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].userName;
         GameObject.Find("Coins Text").GetComponent<CoinsController>().UpdateCoinsText();
@@ -61,6 +66,7 @@ public class GameController : MonoBehaviour {
 
     public void initWaves(int num, float waveEnergy)
     {
+        //if (GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(DataStorage.dataStorage.WaveNo))
         StartCoroutine(CreateMonsterWave(3, num, new Vector3(21f, 0f, -25f), waveEnergy));
         //StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
     } 
@@ -131,11 +137,12 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public IEnumerator CreateMonsterWave(float delta,  int n, Vector3 pos, float maxEnergy)
+    public IEnumerator CreateMonsterWave(float delta, int n, Vector3 pos, float maxEnergy)
     {
         for (int i = 0; i < n; i++)
         {
             CreateMonster(pos, maxEnergy, maxEnergy);
+            DataStorage.dataStorage.mobsCreated++;
             yield return new WaitForSeconds(delta);
         }
     }

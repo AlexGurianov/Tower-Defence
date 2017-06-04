@@ -133,6 +133,7 @@
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Pathfinding.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\RandomStops.cs" />
     <Compile Include="Assets\scripts\Levels\Monster\Pathfinding\Unit.cs" />
+    <Compile Include="Assets\scripts\Levels\MonsterWaveController\MonsterWaveController.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\GameInfo.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\MonsterInfo.cs" />
     <Compile Include="Assets\scripts\Levels\Saver&amp;Loader\Profile.cs" />

@@ -64,6 +64,8 @@ public class Saver_Loader : MonoBehaviour {
         savedGame.elapsedTime = DataStorage.dataStorage.elapsedTime;
         savedGame.mobsKilled = DataStorage.dataStorage.mobsKilled;
         savedGame.mobsPassed = DataStorage.dataStorage.mobsPassed;
+        savedGame.waveNo = DataStorage.dataStorage.WaveNo;
+        savedGame.mobsCreated = DataStorage.dataStorage.mobsCreated;
 
         SceneInfoCarrier.sceneInfoCarrier.gameInfo.profilesList[SceneInfoCarrier.sceneInfoCarrier.gameInfo.userNo].savedGamesDictionary[gameName] = savedGame;
     }
