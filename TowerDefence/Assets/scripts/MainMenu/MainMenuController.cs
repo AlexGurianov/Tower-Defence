@@ -48,9 +48,9 @@ public class MainMenuController : MonoBehaviour {
 
     public void NewMapButtonClicked()
     {
+        SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = true;
         if (Application.platform == RuntimePlatform.Android)
-        {
-            SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = true;
+        {            
             SceneManager.LoadScene("Loading");
         }
         else

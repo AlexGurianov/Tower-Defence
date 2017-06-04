@@ -40,6 +40,7 @@ public class MapButtonsController : MonoBehaviour {
 
     public void ExitButtonClicked()
     {
+        SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = false;
         isExiting = true;
     }
 

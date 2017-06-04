@@ -39,7 +39,7 @@ public class TowerController : MonoBehaviour {
         placedTime = Time.time;
         Destroy(GetComponent<DragDrop>());
         GameObject gameController = GameObject.Find("GameController");
-        if (!preset)
+        if (!preset && !SceneInfoCarrier.sceneInfoCarrier.OpenNewMap)
             GameObject.Find("Coins Text").GetComponent<CoinsController>().SubtractCoinsForTower(type);
         DataStorage.dataStorage.isPlacingTower = false;
         if (gameController != null)
@@ -56,7 +56,8 @@ public class TowerController : MonoBehaviour {
 
     public void DeleteTower()
     {
-        GameObject.Find("Coins Text").GetComponent<CoinsController>().RefundCoinsForTower(type);
+        if (!SceneInfoCarrier.sceneInfoCarrier.OpenNewMap)
+            GameObject.Find("Coins Text").GetComponent<CoinsController>().RefundCoinsForTower(type);
         DataStorage.dataStorage.towersDictionary.Remove(ID);
         Destroy(gameObject);
     }

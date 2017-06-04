@@ -16,7 +16,7 @@ public class RandomStops {
 
     public static float TimeToStop(float lambda)
     {
-        return -Mathf.Log(Random.Range(0.1f, 1))/lambda;
+        return -2*Mathf.Log(Random.Range(0.1f, 1))/lambda;
     }
 
     public static float TimeOfStop()

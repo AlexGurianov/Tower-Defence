@@ -15,6 +15,17 @@ public class ProfileButton : MonoBehaviour {
 
     public Transform CheckPanel;
 
+    void Start()
+    {
+        StartCoroutine(ChangeSize());
+    }
+
+    IEnumerator ChangeSize()
+    {
+        yield return null;
+        GetComponent<RectTransform>().sizeDelta = new Vector2(0.6f * GetComponent<RectTransform>().sizeDelta.y, GetComponent<RectTransform>().sizeDelta.y);
+    }
+
     public void Select()
     {
         Color tempColor = LeftFrame.color;

@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour {
     public void initWaves(int num, float waveEnergy)
     {
         //if (GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(DataStorage.dataStorage.WaveNo))
-        StartCoroutine(CreateMonsterWave(3, num, new Vector3(21f, 0f, -25f), waveEnergy));
+        StartCoroutine(CreateMonsterWave(3, num, new Vector3(40f, 0f, -25f), waveEnergy));
         //StartCoroutine(CreateMonsterWave(7, 10, new Vector3(5f, 0f, 8f), waveEnergy));
     } 
 	

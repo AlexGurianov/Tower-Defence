@@ -9,7 +9,7 @@ public class LoadingController : MonoBehaviour {
 	void Start () {
         if (SceneInfoCarrier.sceneInfoCarrier.OpenNewMap)
         {
-            SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = false;
+            //SceneInfoCarrier.sceneInfoCarrier.OpenNewMap = false;
             SceneManager.LoadScene("NewMap");
         }
         else if (SceneInfoCarrier.sceneInfoCarrier.OpenSavedGame)

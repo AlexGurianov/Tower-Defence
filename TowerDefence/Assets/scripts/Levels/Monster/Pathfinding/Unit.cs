@@ -95,6 +95,7 @@ public class Unit : MonoBehaviour {
                         target = GameObject.Find("DeathPlace").transform;
                         //DataStorage.dataStorage.monstersDictionary.Remove(GetComponent<MonsterController>().ID);
                         DataStorage.dataStorage.RemoveMob(GetComponent<MonsterController>().ID);
+                        isStopped = false;
                         StartCoroutine(UpdatePath());
                         goingToDie = true;
                         GetComponent<MonsterController>().invinsible = true;

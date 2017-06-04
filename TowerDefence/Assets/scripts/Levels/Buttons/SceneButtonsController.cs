@@ -185,7 +185,7 @@ public class SceneButtonsController : MonoBehaviour {
             if ((DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower1 ||
                 DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower2 ||
                 DataStorage.dataStorage.towersDictionary[TowerID].type == TowerType.tower3)
-                && DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<ShootingTowerController>().CanUpgrade())
+                && DataStorage.dataStorage.towersDictionary[TowerID].GetComponent<ShootingTowerController>().CanUpgrade() && !SceneInfoCarrier.sceneInfoCarrier.OpenNewMap)
             {
                 MakeUpgradeInfoPanel(TowerID);
                 upgradeTowerButton.SetActive(true);

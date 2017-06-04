@@ -53,18 +53,20 @@ public class MonsterController : MonoBehaviour {
         }
     }
 
-    IEnumerator UpdateAfterMonsterDeath(float delay)
+    /*IEnumerator UpdateAfterMonsterDeath(float delay)
     {
         yield return new WaitForSeconds(delay);
         GameObject.Find("Coins Text").GetComponent<CoinsController>().AddCoinsForMonster();
         DataStorage.dataStorage.mobsKilled++;
-    }
+    }*/
 
     public void DeleteMonster(float delay)
     {
         //DataStorage.dataStorage.monstersDictionary.Remove(ID);
         DataStorage.dataStorage.RemoveMob(ID);
-        StartCoroutine(UpdateAfterMonsterDeath(0.9f*delay));
+        GameObject.Find("Coins Text").GetComponent<CoinsController>().AddCoinsForMonster();
+        DataStorage.dataStorage.mobsKilled++;
+        //StartCoroutine(UpdateAfterMonsterDeath(0.9f*delay));
         Destroy(gameObject, delay);
     }
 

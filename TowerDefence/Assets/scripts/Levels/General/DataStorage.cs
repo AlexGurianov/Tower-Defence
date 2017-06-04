@@ -67,11 +67,18 @@ public class DataStorage : MonoBehaviour {
 
         if (monstersDictionary.Count <= 0)
         {
-            WaveNo++;
-            mobsCreated = 0;
-            int num = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(WaveNo);
-            float energy = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWaveEnergy(WaveNo);
-            GameObject.Find("GameController").GetComponent<GameController>().initWaves(num, energy);
+            StartCoroutine(StartWaveAfterDelay());
+            //GameObject.Find("GameController").GetComponent<GameController>().initWaves(num, energy);
         }        
+    }
+
+    IEnumerator StartWaveAfterDelay()
+    {        
+        WaveNo++;
+        mobsCreated = 0;
+        int num = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWavePopulation(WaveNo);
+        float energy = GameObject.Find("MonsterWaveController").GetComponent<MonsterWaveController>().GetWaveEnergy(WaveNo);
+        yield return new WaitForSeconds(1f);
+        GameObject.Find("GameController").GetComponent<GameController>().initWaves(num, energy);
     }
 }
