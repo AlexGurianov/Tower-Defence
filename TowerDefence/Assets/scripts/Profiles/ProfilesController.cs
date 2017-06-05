@@ -137,6 +137,7 @@ public class ProfilesController : MonoBehaviour {
     IEnumerator SetScrollbar(float val)
     {
         yield return null;
+        yield return null;
         HorScrollbar.value = val;
     }
 
