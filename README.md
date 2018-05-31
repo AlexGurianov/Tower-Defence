@@ -19,7 +19,7 @@ Appropriate cauldron is always preferable. Meaning that you must choose wisely. 
 
 There are also dummy objects. Pay for them and they will help you to slow the pace of your enemies down. But don't overuse them. It's not a secret that they are useless for killing ghosts.
 
-You lose after too many hearts have disappeared, and you shall always lose. "Game over" message appears. It's time to relax and see other options in the main menu. Don't hesitate to press "Ok"
+You lose after too many hearts have disappeared, and you shall always lose. "Game over" message appears. It's time to relax and see other options in the main menu. Don't hesitate to press "Ok".
 
 "Saved games" are stored. Create checkpoints when you are in a mood of not wanting to continue at the moment.
 
@@ -32,3 +32,6 @@ Music is fabulous, fantastic and quite soothing. Turn it off immediately in "Set
 Profiles are good. Satisfy your needs through deleting your wrong creations. Profiles are not ghosts. Killing them don't harm.
 
 When bored try "Exit" option. Clicking on this option generates a whole new world of opportunities. Ghosts should stop hunting you at this moment.
+
+To give you the taste several screenshots are included:
+
