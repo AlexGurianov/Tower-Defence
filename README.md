@@ -33,5 +33,8 @@ Profiles are good. Satisfy your needs through deleting your wrong creations. Pro
 
 When bored try "Exit" option. Clicking on this option generates a whole new world of opportunities. Ghosts should stop hunting you at this moment.
 
-To give you the taste several screenshots are included:
+To give you a little taste several screenshots are included:
+
+<img src="https://drive.google.com/uc?export=view&id=1orHodgVYfapTwoYm4A91C60ZYBnTayO_" width=49% alt="cat image"> <img src="https://drive.google.com/uc?export=view&id=1zIvFOv-aEP4h9klmHMJLAkeMglv1GjSB" width=49% alt="cat gif">
+<img src="https://drive.google.com/uc?export=view&id=1NMJ2m_J1wa7cFWOBmMNjh_es_SOAaAtZ" width=49% alt="cat image"> <img src="https://drive.google.com/uc?export=view&id=1aH54VO_Rg3-sihbVHINkjSAMPFUudNdB" width=49% alt="cat gif">
 
